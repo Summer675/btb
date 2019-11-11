@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msy.demo.dao.BlockMapper">
+  <resultMap id="bmap" type="com.msy.demo.po.Block">
+    <id column="BlkId" jdbcType="CHAR" property="blkid" />
+    <result column="Height" jdbcType="INTEGER" property="height" />
+    <result column="TxCount" jdbcType="INTEGER" property="txcount" />
+    <result column="Size" jdbcType="INTEGER" property="size" />
+    <result column="PreId" jdbcType="CHAR" property="preid" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Nonce" jdbcType="BIGINT" property="nonce" />
+    <result column="Difficulty" jdbcType="INTEGER" property="difficulty" />
+    <result column="Bits" jdbcType="CHAR" property="bits" />
+    <result column="Version" jdbcType="INTEGER" property="version" />
+    <result column="TxMerkleRoot" jdbcType="CHAR" property="txmerkleroot" />
+  </resultMap>
+  <sql id="blocklist">
+    BlkId, Height, TxCount, Size, PreId, Timestamp, Nonce, Difficulty, Bits, Version, 
+    TxMerkleRoot
+  </sql>
+
+  <select id="list"  resultMap="bmap">
+    select
+    <include refid="blocklist" />
+    from block
+
+  </select>
+
+
+</mapper>

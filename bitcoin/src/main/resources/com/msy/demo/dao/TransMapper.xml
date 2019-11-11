@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msy.demo.dao.TransMapper">
+  <resultMap id="tranmap" type="com.msy.demo.po.Trans">
+    <id column="TxId" jdbcType="INTEGER" property="txid" />
+    <result column="BlkId" jdbcType="CHAR" property="blkid" />
+    <result column="TxHash" jdbcType="CHAR" property="txhash" />
+    <result column="Version" jdbcType="INTEGER" property="version" />
+    <result column="InputCount" jdbcType="BIGINT" property="inputcount" />
+    <result column="OutputCount" jdbcType="BIGINT" property="outputcount" />
+    <result column="TotalOutAmount" jdbcType="BIGINT" property="totaloutamount" />
+    <result column="TotalInAmount" jdbcType="BIGINT" property="totalinamount" />
+    <result column="TransFee" jdbcType="BIGINT" property="transfee" />
+    <result column="IsCoinbase" jdbcType="BIT" property="iscoinbase" />
+    <result column="IsHeightLock" jdbcType="BIT" property="isheightlock" />
+    <result column="IsTimeLock" jdbcType="BIT" property="istimelock" />
+    <result column="LockTimeValue" jdbcType="INTEGER" property="locktimevalue" />
+  </resultMap>
+  <sql id="tranlist">
+    TxId, BlkId, TxHash, Version, InputCount, OutputCount, TotalOutAmount, TotalInAmount, 
+    TransFee, IsCoinbase, IsHeightLock, IsTimeLock, LockTimeValue
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="tranmap">
+    select 
+    <include refid="tranlist" />
+    from trans
+    where TxId = #{txid,jdbcType=INTEGER}
+  </select>
+  <select id="list" resultMap="tranmap">
+    select
+    <include refid="tranlist" />
+    from trans
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trans
+    where TxId = #{txid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.msy.demo.po.Trans">
+    insert into trans (TxId, BlkId, TxHash, 
+      Version, InputCount, OutputCount, 
+      TotalOutAmount, TotalInAmount, TransFee, 
+      IsCoinbase, IsHeightLock, IsTimeLock, 
+      LockTimeValue)
+    values (#{txid,jdbcType=INTEGER}, #{blkid,jdbcType=CHAR}, #{txhash,jdbcType=CHAR}, 
+      #{version,jdbcType=INTEGER}, #{inputcount,jdbcType=BIGINT}, #{outputcount,jdbcType=BIGINT}, 
+      #{totaloutamount,jdbcType=BIGINT}, #{totalinamount,jdbcType=BIGINT}, #{transfee,jdbcType=BIGINT}, 
+      #{iscoinbase,jdbcType=BIT}, #{isheightlock,jdbcType=BIT}, #{istimelock,jdbcType=BIT}, 
+      #{locktimevalue,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.msy.demo.po.Trans">
+    insert into trans
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        TxId,
+      </if>
+      <if test="blkid != null">
+        BlkId,
+      </if>
+      <if test="txhash != null">
+        TxHash,
+      </if>
+      <if test="version != null">
+        Version,
+      </if>
+      <if test="inputcount != null">
+        InputCount,
+      </if>
+      <if test="outputcount != null">
+        OutputCount,
+      </if>
+      <if test="totaloutamount != null">
+        TotalOutAmount,
+      </if>
+      <if test="totalinamount != null">
+        TotalInAmount,
+      </if>
+      <if test="transfee != null">
+        TransFee,
+      </if>
+      <if test="iscoinbase != null">
+        IsCoinbase,
+      </if>
+      <if test="isheightlock != null">
+        IsHeightLock,
+      </if>
+      <if test="istimelock != null">
+        IsTimeLock,
+      </if>
+      <if test="locktimevalue != null">
+        LockTimeValue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="blkid != null">
+        #{blkid,jdbcType=CHAR},
+      </if>
+      <if test="txhash != null">
+        #{txhash,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="inputcount != null">
+        #{inputcount,jdbcType=BIGINT},
+      </if>
+      <if test="outputcount != null">
+        #{outputcount,jdbcType=BIGINT},
+      </if>
+      <if test="totaloutamount != null">
+        #{totaloutamount,jdbcType=BIGINT},
+      </if>
+      <if test="totalinamount != null">
+        #{totalinamount,jdbcType=BIGINT},
+      </if>
+      <if test="transfee != null">
+        #{transfee,jdbcType=BIGINT},
+      </if>
+      <if test="iscoinbase != null">
+        #{iscoinbase,jdbcType=BIT},
+      </if>
+      <if test="isheightlock != null">
+        #{isheightlock,jdbcType=BIT},
+      </if>
+      <if test="istimelock != null">
+        #{istimelock,jdbcType=BIT},
+      </if>
+      <if test="locktimevalue != null">
+        #{locktimevalue,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msy.demo.po.Trans">
+    update trans
+    <set>
+      <if test="blkid != null">
+        BlkId = #{blkid,jdbcType=CHAR},
+      </if>
+      <if test="txhash != null">
+        TxHash = #{txhash,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        Version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="inputcount != null">
+        InputCount = #{inputcount,jdbcType=BIGINT},
+      </if>
+      <if test="outputcount != null">
+        OutputCount = #{outputcount,jdbcType=BIGINT},
+      </if>
+      <if test="totaloutamount != null">
+        TotalOutAmount = #{totaloutamount,jdbcType=BIGINT},
+      </if>
+      <if test="totalinamount != null">
+        TotalInAmount = #{totalinamount,jdbcType=BIGINT},
+      </if>
+      <if test="transfee != null">
+        TransFee = #{transfee,jdbcType=BIGINT},
+      </if>
+      <if test="iscoinbase != null">
+        IsCoinbase = #{iscoinbase,jdbcType=BIT},
+      </if>
+      <if test="isheightlock != null">
+        IsHeightLock = #{isheightlock,jdbcType=BIT},
+      </if>
+      <if test="istimelock != null">
+        IsTimeLock = #{istimelock,jdbcType=BIT},
+      </if>
+      <if test="locktimevalue != null">
+        LockTimeValue = #{locktimevalue,jdbcType=INTEGER},
+      </if>
+    </set>
+    where TxId = #{txid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msy.demo.po.Trans">
+    update trans
+    set BlkId = #{blkid,jdbcType=CHAR},
+      TxHash = #{txhash,jdbcType=CHAR},
+      Version = #{version,jdbcType=INTEGER},
+      InputCount = #{inputcount,jdbcType=BIGINT},
+      OutputCount = #{outputcount,jdbcType=BIGINT},
+      TotalOutAmount = #{totaloutamount,jdbcType=BIGINT},
+      TotalInAmount = #{totalinamount,jdbcType=BIGINT},
+      TransFee = #{transfee,jdbcType=BIGINT},
+      IsCoinbase = #{iscoinbase,jdbcType=BIT},
+      IsHeightLock = #{isheightlock,jdbcType=BIT},
+      IsTimeLock = #{istimelock,jdbcType=BIT},
+      LockTimeValue = #{locktimevalue,jdbcType=INTEGER}
+    where TxId = #{txid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msy.demo.dao.TxInputMapper">
+  <resultMap id="txinputMap" type="com.msy.demo.po.TxInput">
+    <id column="Idx" jdbcType="INTEGER" property="idx" />
+    <result column="TxId" jdbcType="INTEGER" property="txid" />
+    <result column="Amount" jdbcType="BIGINT" property="amount" />
+    <result column="PrevOutTxId" jdbcType="CHAR" property="prevouttxid" />
+    <result column="PrevOutIndex" jdbcType="INTEGER" property="prevoutindex" />
+    <result column="PaymentScriptLen" jdbcType="INTEGER" property="paymentscriptlen" />
+    <result column="PaymentScript" jdbcType="VARCHAR" property="paymentscript" />
+    <result column="Address" jdbcType="CHAR" property="address" />
+  </resultMap>
+  <sql id="txin">
+    Idx, TxId, Amount, PrevOutTxId, PrevOutIndex, PaymentScriptLen, PaymentScript, Address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="txinputMap">
+    select 
+    <include refid="txin" />
+    from txinput
+    where Idx = #{idx,jdbcType=INTEGER}
+  </select>
+
+  <select id="list" resultMap="txinputMap">
+    select
+    <include refid="txin" />
+    from txinput
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from txinput
+    where Idx = #{idx,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.msy.demo.po.TxInput">
+    insert into txinput (Idx, TxId, Amount, 
+      PrevOutTxId, PrevOutIndex, PaymentScriptLen, 
+      PaymentScript, Address)
+    values (#{idx,jdbcType=INTEGER}, #{txid,jdbcType=INTEGER}, #{amount,jdbcType=BIGINT}, 
+      #{prevouttxid,jdbcType=CHAR}, #{prevoutindex,jdbcType=INTEGER}, #{paymentscriptlen,jdbcType=INTEGER}, 
+      #{paymentscript,jdbcType=VARCHAR}, #{address,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.msy.demo.po.TxInput">
+    insert into txinput
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        Idx,
+      </if>
+      <if test="txid != null">
+        TxId,
+      </if>
+      <if test="amount != null">
+        Amount,
+      </if>
+      <if test="prevouttxid != null">
+        PrevOutTxId,
+      </if>
+      <if test="prevoutindex != null">
+        PrevOutIndex,
+      </if>
+      <if test="paymentscriptlen != null">
+        PaymentScriptLen,
+      </if>
+      <if test="paymentscript != null">
+        PaymentScript,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="txid != null">
+        #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="prevouttxid != null">
+        #{prevouttxid,jdbcType=CHAR},
+      </if>
+      <if test="prevoutindex != null">
+        #{prevoutindex,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscriptlen != null">
+        #{paymentscriptlen,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscript != null">
+        #{paymentscript,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msy.demo.po.TxInput">
+    update txinput
+    <set>
+      <if test="txid != null">
+        TxId = #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        Amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="prevouttxid != null">
+        PrevOutTxId = #{prevouttxid,jdbcType=CHAR},
+      </if>
+      <if test="prevoutindex != null">
+        PrevOutIndex = #{prevoutindex,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscriptlen != null">
+        PaymentScriptLen = #{paymentscriptlen,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscript != null">
+        PaymentScript = #{paymentscript,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=CHAR},
+      </if>
+    </set>
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msy.demo.po.TxInput">
+    update txinput
+    set TxId = #{txid,jdbcType=INTEGER},
+      Amount = #{amount,jdbcType=BIGINT},
+      PrevOutTxId = #{prevouttxid,jdbcType=CHAR},
+      PrevOutIndex = #{prevoutindex,jdbcType=INTEGER},
+      PaymentScriptLen = #{paymentscriptlen,jdbcType=INTEGER},
+      PaymentScript = #{paymentscript,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=CHAR}
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msy.demo.dao.TxOutputMapper">
+  <resultMap id="txoutmap" type="com.msy.demo.po.TxOutput">
+    <id column="Idx" jdbcType="INTEGER" property="idx" />
+    <result column="TxId" jdbcType="INTEGER" property="txid" />
+    <result column="Amount" jdbcType="BIGINT" property="amount" />
+    <result column="ScriptPubKeyLen" jdbcType="INTEGER" property="scriptpubkeylen" />
+    <result column="ScriptPubKey" jdbcType="VARCHAR" property="scriptpubkey" />
+    <result column="Address" jdbcType="CHAR" property="address" />
+    <result column="IsUnspendable" jdbcType="BIT" property="isunspendable" />
+    <result column="IsPayToScriptHash" jdbcType="BIT" property="ispaytoscripthash" />
+    <result column="IsValid" jdbcType="BIT" property="isvalid" />
+    <result column="IsSpent" jdbcType="BIT" property="isspent" />
+  </resultMap>
+  <sql id="txout">
+    Idx, TxId, Amount, ScriptPubKeyLen, ScriptPubKey, Address, IsUnspendable, IsPayToScriptHash, 
+    IsValid, IsSpent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="txoutmap">
+    select
+    <include refid="txout" />
+    from txoutput
+    where Idx = #{idx,jdbcType=INTEGER}
+  </select>
+
+  <select id="list" resultMap="txoutmap">
+    select
+    <include refid="txout" />
+    from txoutput
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from txoutput
+    where Idx = #{idx,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.msy.demo.po.TxOutput">
+    insert into txoutput (Idx, TxId, Amount, 
+      ScriptPubKeyLen, ScriptPubKey, Address, 
+      IsUnspendable, IsPayToScriptHash, IsValid, 
+      IsSpent)
+    values (#{idx,jdbcType=INTEGER}, #{txid,jdbcType=INTEGER}, #{amount,jdbcType=BIGINT}, 
+      #{scriptpubkeylen,jdbcType=INTEGER}, #{scriptpubkey,jdbcType=VARCHAR}, #{address,jdbcType=CHAR}, 
+      #{isunspendable,jdbcType=BIT}, #{ispaytoscripthash,jdbcType=BIT}, #{isvalid,jdbcType=BIT}, 
+      #{isspent,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.msy.demo.po.TxOutput">
+    insert into txoutput
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        Idx,
+      </if>
+      <if test="txid != null">
+        TxId,
+      </if>
+      <if test="amount != null">
+        Amount,
+      </if>
+      <if test="scriptpubkeylen != null">
+        ScriptPubKeyLen,
+      </if>
+      <if test="scriptpubkey != null">
+        ScriptPubKey,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="isunspendable != null">
+        IsUnspendable,
+      </if>
+      <if test="ispaytoscripthash != null">
+        IsPayToScriptHash,
+      </if>
+      <if test="isvalid != null">
+        IsValid,
+      </if>
+      <if test="isspent != null">
+        IsSpent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="txid != null">
+        #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="scriptpubkeylen != null">
+        #{scriptpubkeylen,jdbcType=INTEGER},
+      </if>
+      <if test="scriptpubkey != null">
+        #{scriptpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=CHAR},
+      </if>
+      <if test="isunspendable != null">
+        #{isunspendable,jdbcType=BIT},
+      </if>
+      <if test="ispaytoscripthash != null">
+        #{ispaytoscripthash,jdbcType=BIT},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=BIT},
+      </if>
+      <if test="isspent != null">
+        #{isspent,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msy.demo.po.TxOutput">
+    update txoutput
+    <set>
+      <if test="txid != null">
+        TxId = #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        Amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="scriptpubkeylen != null">
+        ScriptPubKeyLen = #{scriptpubkeylen,jdbcType=INTEGER},
+      </if>
+      <if test="scriptpubkey != null">
+        ScriptPubKey = #{scriptpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=CHAR},
+      </if>
+      <if test="isunspendable != null">
+        IsUnspendable = #{isunspendable,jdbcType=BIT},
+      </if>
+      <if test="ispaytoscripthash != null">
+        IsPayToScriptHash = #{ispaytoscripthash,jdbcType=BIT},
+      </if>
+      <if test="isvalid != null">
+        IsValid = #{isvalid,jdbcType=BIT},
+      </if>
+      <if test="isspent != null">
+        IsSpent = #{isspent,jdbcType=BIT},
+      </if>
+    </set>
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msy.demo.po.TxOutput">
+    update txoutput
+    set TxId = #{txid,jdbcType=INTEGER},
+      Amount = #{amount,jdbcType=BIGINT},
+      ScriptPubKeyLen = #{scriptpubkeylen,jdbcType=INTEGER},
+      ScriptPubKey = #{scriptpubkey,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=CHAR},
+      IsUnspendable = #{isunspendable,jdbcType=BIT},
+      IsPayToScriptHash = #{ispaytoscripthash,jdbcType=BIT},
+      IsValid = #{isvalid,jdbcType=BIT},
+      IsSpent = #{isspent,jdbcType=BIT}
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+
+</mapper>
