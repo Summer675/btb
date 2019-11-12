@@ -3,6 +3,8 @@
 <mapper namespace="com.msy.demo.dao.BlockMapper">
   <resultMap id="bmap" type="com.msy.demo.po.Block">
     <id column="BlkId" jdbcType="CHAR" property="blkid" />
+    <result column="Hash" jdbcType="CHAR" property="Hash" />
+    <result column="Minner" jdbcType="CHAR" property="Minner" />
     <result column="Height" jdbcType="INTEGER" property="height" />
     <result column="TxCount" jdbcType="INTEGER" property="txcount" />
     <result column="Size" jdbcType="INTEGER" property="size" />
@@ -15,7 +17,7 @@
     <result column="TxMerkleRoot" jdbcType="CHAR" property="txmerkleroot" />
   </resultMap>
   <sql id="blocklist">
-    BlkId, Height, TxCount, Size, PreId, Timestamp, Nonce, Difficulty, Bits, Version, 
+    BlkId, Hash,Minner,Height, TxCount, Size, PreId, Timestamp, Nonce, Difficulty, Bits, Version,
     TxMerkleRoot
   </sql>
 

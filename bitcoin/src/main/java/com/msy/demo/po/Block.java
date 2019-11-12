@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Block {
     private String blkid;
-
+    private String Hash;
     private Integer height;
-
+    private String Minner;
     private Integer txcount;
 
     private Integer size;
@@ -24,6 +24,22 @@ public class Block {
     private Integer version;
 
     private String txmerkleroot;
+
+    public String getMinner() {
+        return Minner;
+    }
+
+    public void setMinner(String minner) {
+        Minner = minner;
+    }
+
+    public String getHash() {
+        return Hash;
+    }
+
+    public void setHash(String hash) {
+        Hash = hash;
+    }
 
     public String getBlkid() {
         return blkid;
